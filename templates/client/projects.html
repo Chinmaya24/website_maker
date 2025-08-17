@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ tech.name }} — Projects</h2>
+{% if projects %}
+  <div class="grid grid-3">
+    {% for p in projects %}
+      <div class="card">
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.short_desc }}</p>
+        {% if p.price_quote %}
+          <div class="badge">Starting at ₹{{ p.price_quote }}</div>
+        {% else %}
+          <div class="badge">Custom quote</div>
+        {% endif %}
+        {% if p.images %}
+          <div class="gallery" style="margin-top:.5rem">
+            {% for img in p.images[:3] %}
+              <img src="{{ url_for('uploaded_file', filename=img.filename) }}" alt="{{ p.title }} image">
+            {% endfor %}
+          </div>
+        {% endif %}
+        <details style="margin-top:.5rem">
+          <summary>More details</summary>
+          <p>{{ p.long_desc }}</p>
+        </details>
+        {% if current_user.is_authenticated %}
+          <a class="btn" href="{{ WHATSAPP_LINK }}" target="_blank">Discuss on WhatsApp</a>
+        {% else %}
+          <a class="btn" href="{{ url_for('login') }}">Login to Contact</a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="card">No projects yet under {{ tech.name }}. Check back soon or choose <a href="{{ url_for('other_request') }}">Other</a> to submit your idea.</div>
+{% endif %}
+{% endblock %}

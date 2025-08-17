@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Create Account</h2>
+<form method="post" class="grid">
+  <div>
+    <label>Name</label>
+    <input class="input" type="text" name="name" required>
+  </div>
+  <div>
+    <label>Email</label>
+    <input class="input" type="email" name="email" required>
+  </div>
+  <div>
+    <label>Password</label>
+    <input class="input" type="password" name="password" required>
+  </div>
+  <button class="btn primary" type="submit">Sign Up</button>
+</form>
+{% endblock %}

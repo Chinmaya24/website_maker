@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<header class="card" style="margin-bottom:1rem">
+  <h1>We build websites & apps for you</h1>
+  <p>Select a technology to view our existing projects and quotations. Choose <strong>Other</strong> to describe your custom requirement.</p>
+</header>
+
+<div class="grid grid-3">
+  {% for tech in techs %}
+    <div class="card">
+      <div class="badge">Tech</div>
+      <h3>{{ tech.name }}</h3>
+      <p style="color:#475569">{{ tech.description or '' }}</p>
+      <a class="btn primary" href="{{ url_for('tech_projects', tech_id=tech.id) }}">View</a>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

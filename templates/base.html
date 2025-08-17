@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dev Services • Build My Site</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="{{ url_for('index') }}" class="logo"><strong>BuildMySite</strong></a>
+      <div style="display:flex; gap:.5rem; align-items:center">
+        {% if current_user.is_authenticated %}
+          <span class="chip">Hi, {{ current_user.name }}</span>
+          {% if current_user.is_admin %}
+            <a class="btn" href="{{ url_for('admin_dashboard') }}">Admin</a>
+          {% endif %}
+          <a class="btn" href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+          <a class="btn" href="{{ url_for('login') }}">Login</a>
+          <a class="btn" href="{{ url_for('register') }}">Sign Up</a>
+        {% endif %}
+        <a class="btn" target="_blank" rel="noreferrer" href="{{ WHATSAPP_LINK }}">WhatsApp</a>
+        <a class="btn" target="_blank" rel="noreferrer" href="{{ INSTAGRAM_LINK }}">Instagram</a>
+      </div>
+    </div>
+  </nav>
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="grid" style="margin:1rem 0">
+          {% for category, message in messages %}
+            <div class="card" style="border-left:6px solid {% if category=='success' %}#22c55e{% elif category=='danger' %}#ef4444{% elif category=='warning' %}#f59e0b{% else %}#0ea5e9{% endif %}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="container footer">
+    <div>© {{ 2025 }} BuildMySite. Need help? <a href="{{ WHATSAPP_LINK }}" target="_blank">Ping us on WhatsApp</a>.</div>
+  </footer>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

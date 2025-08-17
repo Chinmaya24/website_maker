@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Custom Requirement — Other</h2>
+<form method="post" class="grid">
+  <div>
+    <label>Tell us about your project</label>
+    <textarea name="details" rows="6" placeholder="Describe your idea, pages, login needed, payment, deadline, budget…" required></textarea>
+  </div>
+  <button class="btn primary" type="submit">Submit</button>
+</form>
+<p>Prefer chat? <a href="{{ WHATSAPP_LINK }}" target="_blank">WhatsApp us</a>.</p>
+{% endblock %}

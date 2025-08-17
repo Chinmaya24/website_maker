@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<div class="grid grid-3">
+  <div class="card"><h3>Users</h3><p>{{ total_users }}</p></div>
+  <div class="card"><h3>Projects</h3><p>{{ total_projects }}</p></div>
+  <div class="card"><h3>Inquiries</h3><p>{{ total_inquiries }}</p></div>
+</div>
+<div class="grid" style="margin-top:1rem">
+  <a class="btn" href="{{ url_for('admin_languages') }}">Manage Languages</a>
+  <a class="btn" href="{{ url_for('admin_projects') }}">Manage Projects</a>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ 'Edit' if project else 'New' }} Project</h2>
+<form method="post" enctype="multipart/form-data" class="grid">
+  <div class="card">
+    <label>Title</label>
+    <input class="input" type="text" name="title" value="{{ project.title if project else '' }}" required>
+  </div>
+  <div class="card">
+    <label>Short Description</label>
+    <input class="input" type="text" name="short_desc" value="{{ project.short_desc if project else '' }}">
+  </div>
+  <div class="card">
+    <label>Long Description</label>
+    <textarea name="long_desc" rows="6">{{ project.long_desc if project else '' }}</textarea>
+  </div>
+  <div class="card">
+    <label>Price Quote (₹)</label>
+    <input class="input" type="number" name="price_quote" value="{{ project.price_quote if project and project.price_quote else '' }}" min="0">
+  </div>
+  <div class="card">
+    <label>Technology</label>
+    <select name="tech_id" required>
+      {% for t in techs %}
+        <option value="{{ t.id }}" {% if project and project.tech_id==t.id %}selected{% endif %}>{{ t.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="card">
+    <label>Images (you can select multiple)</label>
+    <input type="file" name="images" accept="image/*" multiple>
+    {% if project and project.images %}
+      <div class="gallery" style="margin-top:.5rem">
+        {% for img in project.images %}
+          <img src="{{ url_for('uploaded_file', filename=img.filename) }}" alt="existing image">
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+  <button class="btn primary" type="submit">Save</button>
+</form>
+{% endblock %}

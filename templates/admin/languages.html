@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Tech Languages</h2>
+<form method="post" class="card">
+  <div class="grid">
+    <div>
+      <label>Name</label>
+      <input class="input" type="text" name="name" placeholder="e.g., Go, Rust" required>
+    </div>
+    <div>
+      <label>Description</label>
+      <input class="input" type="text" name="description" placeholder="Short line (optional)">
+    </div>
+    <div style="display:flex; align-items:center; gap:.5rem">
+      <input type="checkbox" name="is_active" checked id="is_active">
+      <label for="is_active">Active</label>
+    </div>
+    <button class="btn primary" type="submit">Add Language</button>
+  </div>
+</form>
+
+<div class="grid">
+  {% for tech in techs %}
+    <div class="card" style="align-items:flex-start">
+      <h3>{{ tech.name }}</h3>
+      <p>{{ tech.description }}</p>
+      <form action="{{ url_for('toggle_language', tech_id=tech.id) }}" method="get">
+        <button class="btn">Toggle Active ({{ 'ON' if tech.is_active else 'OFF' }})</button>
+      </form>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
